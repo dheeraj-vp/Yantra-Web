@@ -49,6 +49,7 @@ async function checkKeywords(gmail, message, keywords) {
         console.log(`Subject: ${subject}`);
         console.log(`Body: ${body}`);
 
+
         // Process keywords here
         // Example: if keywords contain certain values, perform actions
 
