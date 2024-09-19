@@ -20,6 +20,25 @@ const SCOPES = [
 const authURL = oAuth2Client.generateAuthUrl({ access_type: 'offline', scope: SCOPES });
 console.log('Authorize this app by visiting this URL:', authURL);
 
+function getPlainTextBody(parts) {
+    let body = '';
+
+    function findPlainText(parts) {
+        for (const part of parts) {
+            if (part.mimeType === 'text/plain' && part.body.data) {
+                body += Buffer.from(part.body.data, 'base64').toString('utf-8');
+            } else if (part.mimeType === 'text/html' && part.body.data) {
+                const htmlContent = Buffer.from(part.body.data, 'base64').toString('utf-8');
+                body += htmlToText(htmlContent); // Convert HTML to plain text
+            } else if (part.parts) {
+                findPlainText(part.parts);
+            }
+        }
+    }
+    findPlainText(parts);
+    return body;
+}
+
 async function checkKeywords(gmail, message, keywords) {
     try {
         const messageId = message.id;
@@ -48,38 +67,54 @@ async function checkKeywords(gmail, message, keywords) {
         console.log(`Sender: ${sender}`);
         console.log(`Subject: ${subject}`);
         console.log(`Body: ${body}`);
-
-
         // Process keywords here
         // Example: if keywords contain certain values, perform actions
+        const conditions = [
+            sender.includes(keywords.sender) ? 'SENDER' : '',
+            body.includes(keywords.body) ? 'BODY' : '',
+            subject.includes(keywords.subject) ? 'SUBJECT' : ''
+        ];
 
+        const conditionKey = conditions.filter(Boolean).join('_');
+
+        switch (conditionKey) {
+            case 'SENDER_BODY_SUBJECT':
+                console.log('Matched sender, body, and subject');
+                break;
+            
+            case 'SENDER_SUBJECT':
+                console.log('Matched sender and subject');
+                break;
+            case 'BODY_SUBJECT':
+                console.log('Matched body and subject');
+                break;
+            case 'SENDER_BODY':
+                console.log('Matched sender and body');
+                break;
+            case 'SENDER':
+                console.log('Matched sender');
+                break;
+
+            case 'SUBJECT':
+                console.log('Matched subject');
+                break;
+
+            case 'BODY':
+                console.log('Matched body');
+                break;
+
+            default:
+                console.log('No match');
+                break;
+        }
     } catch (err) {
         console.log(`Error fetching details for message ID ${message.id}:`, err);
     }
 }
 
-function getPlainTextBody(parts) {
-    let body = '';
-
-    function findPlainText(parts) {
-        for (const part of parts) {
-            if (part.mimeType === 'text/plain' && part.body.data) {
-                body += Buffer.from(part.body.data, 'base64').toString('utf-8');
-            } else if (part.mimeType === 'text/html' && part.body.data) {
-                const htmlContent = Buffer.from(part.body.data, 'base64').toString('utf-8');
-                body += htmlToText(htmlContent); // Convert HTML to plain text
-            } else if (part.parts) {
-                findPlainText(part.parts);
-            }
-        }
-    }
-    findPlainText(parts);
-    return body;
-}
-
 async function fetchEmails(auth) {
     const gmail = google.gmail({ version: 'v1', auth });
-    const keywords = {}; // Keywords should be defined based on your requirements
+    const keywords = {sender:"",subject:"",body:""}; // Keywords should be defined based on your requirements
 
     try {
         const res = await gmail.users.messages.list({
