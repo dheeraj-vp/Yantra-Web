@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import fs from "fs";
 import express from "express";
 import { htmlToText } from 'html-to-text'; // Include html-to-text
+import {senderSubjectBody,senderSubject,bodySubject,senderBody,Sender,Subject,Body,keywordsQuery} from '../models/email.model';
 
 dotenv.config();
 const app = express();
@@ -20,8 +21,17 @@ const SCOPES = [
 const authURL = oAuth2Client.generateAuthUrl({ access_type: 'offline', scope: SCOPES });
 console.log('Authorize this app by visiting this URL:', authURL);
 
-function getPlainTextBody(parts) {
+async function addKeywords(sender,body,subject){
+    //DB keywords Query
+    keywordsQuery(sender,body,subject);
+}
+
+async function getPlainTextBody(parts) {
     let body = '';
+
+    if (!parts) {
+        return body;  // Return empty body if parts are undefined
+    }
 
     function findPlainText(parts) {
         for (const part of parts) {
@@ -80,29 +90,32 @@ async function checkKeywords(gmail, message, keywords) {
         switch (conditionKey) {
             case 'SENDER_BODY_SUBJECT':
                 console.log('Matched sender, body, and subject');
+                senderSubjectBody(sender,messageId,subject)
                 break;
-            
             case 'SENDER_SUBJECT':
                 console.log('Matched sender and subject');
+                senderSubject(sender,messageId,subject)
                 break;
             case 'BODY_SUBJECT':
                 console.log('Matched body and subject');
+                subjectBody(sender,messageId,subject)
                 break;
             case 'SENDER_BODY':
                 console.log('Matched sender and body');
+                senderBody(sender,messageId,subject)
                 break;
             case 'SENDER':
                 console.log('Matched sender');
+                Sender(sender,messageId,subject)
                 break;
-
             case 'SUBJECT':
                 console.log('Matched subject');
+                Subject(sender,messageId,subject)
                 break;
-
             case 'BODY':
                 console.log('Matched body');
+                Body(sender,messageId,subject)
                 break;
-
             default:
                 console.log('No match');
                 break;
@@ -113,8 +126,11 @@ async function checkKeywords(gmail, message, keywords) {
 }
 
 async function fetchEmails(auth) {
-    const gmail = google.gmail({ version: 'v1', auth });
+
     const keywords = {sender:"",subject:"",body:""}; // Keywords should be defined based on your requirements
+    addKeywords(keywords.sender, keywords.body, keywords.subject);//add these keywords in table
+
+    const gmail = google.gmail({ version: 'v1', auth });
 
     try {
         const res = await gmail.users.messages.list({
@@ -131,7 +147,7 @@ async function fetchEmails(auth) {
                 await checkKeywords(gmail, message, keywords);
             }
         } else {
-            console.log("No messages found.");
+            console.error(`Error fetching details for message ID ${message.id}:`, err); 
         }
     } catch (err) {
         console.log("API error:", err);
