@@ -56,4 +56,4 @@ async function Body(sender, messageId, subject) {
 }
 
 
-export default {senderBodySubject,senderSubject,bodySubject,senderBody,Sender,Subject,Body,keywordsQuery};
+export default {db,senderBodySubject,senderSubject,bodySubject,senderBody,Sender,Subject,Body,keywordsQuery};
