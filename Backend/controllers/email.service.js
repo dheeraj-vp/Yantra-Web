@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import fs from "fs";
 import express from "express";
 import { htmlToText } from 'html-to-text'; 
+import cron from 'node-cron';
 import { senderSubjectBody, senderSubject, bodySubject, senderBody, Sender, Subject, Body, keywordsQuery, getKeywords } from '../models/email.model'; // Updated to include getKeywords
 
 dotenv.config();
@@ -22,6 +23,50 @@ let historyId = null; // Global variable to store historyId after the first run
 
 const authURL = oAuth2Client.generateAuthUrl({ access_type: 'offline', scope: SCOPES });
 console.log('Authorize this app by visiting this URL:', authURL);
+
+app.get('/', async (req, res) => {
+    const code = req.query.code;
+
+    if (!code) {
+        return res.send('Authorization failed. No code returned.');
+    }
+
+    try {
+        const { tokens } = await oAuth2Client.getToken(code);
+        oAuth2Client.setCredentials(tokens);
+        fs.writeFileSync('token.json', JSON.stringify(tokens));
+        res.send('Authorization successful! You can close this window.');
+
+        const firstTime = true; // Change this based on your logic to detect the first time user
+        if (firstTime) {
+            const maxResults = 10; // User-defined limit for first-time emails
+            await fetchInitialEmails(oAuth2Client, maxResults);
+            firstTime = false;
+        } else {
+            await fetchUnreadEmails(oAuth2Client);
+        }
+    } catch (err) {
+        return res.send(`Error retrieving access tokens: ${err}`);
+    }
+});
+
+cron.schedule('*/15 * * * *', async () => {
+    try {
+        console.log('Checking for new emails...');
+        
+        // Refresh token if needed
+        if (oAuth2Client.isTokenExpiring()) {
+            const newToken = await oAuth2Client.getAccessToken();
+            oAuth2Client.setCredentials(newToken);
+        }
+
+        const auth = oAuth2Client;  // Use your stored OAuth client
+        await fetchUnreadEmails(auth);  // Function to fetch unread emails
+    } catch (err) {
+        console.error('Error while checking for new emails:', err);
+    }
+});
+
 
 async function addKeywords(sender, body, subject) {
     // DB keywords Query
@@ -117,6 +162,95 @@ async function checkKeywords(gmail, message, keywords) {
     }
 }
 
+// Fetch keywords from the database and check against new emails
+async function checkNewEmailWithKeywords(gmail, message) {
+    try {
+        // Fetch the message details
+        const messageId = message.id;
+        const messageDetail = await gmail.users.messages.get({
+            userId: 'me',
+            id: messageId,
+        });
+
+        const senderHeader = messageDetail.data.payload.headers.find(header => header.name === 'From');
+        const sender = senderHeader ? senderHeader.value : 'Unknown Sender';
+        const subject = messageDetail.data.payload.headers.find(header => header.name === 'Subject')?.value || 'No Subject';
+        let body = '';
+
+        if (messageDetail.data.payload.parts) {
+            body = await getPlainTextBody(messageDetail.data.payload.parts);
+        } else if (messageDetail.data.payload.body.data) {
+            const bodyContent = Buffer.from(messageDetail.data.payload.body.data, 'base64').toString('utf-8');
+            if (messageDetail.data.payload.mimeType === 'text/html') {
+                body = htmlToText(bodyContent);
+            } else if (messageDetail.data.payload.mimeType === 'text/plain') {
+                body = bodyContent;
+            }
+        }
+
+        console.log(`Checking email from ${sender} with subject "${subject}"`);
+
+        // Fetch keywords from the database
+        const keywordsResult = await db.query('SELECT * FROM userKeywords');
+        const keywords = keywordsResult.rows;
+
+        // Iterate through each keyword set in the database
+        for (const keyword of keywords) {
+            const matches = [];
+
+            if (keyword.sender && sender.includes(keyword.sender)) {
+                matches.push('SENDER');
+            }
+            if (keyword.subject && subject.includes(keyword.subject)) {
+                matches.push('SUBJECT');
+            }
+            if (keyword.body && body.includes(keyword.body)) {
+                matches.push('BODY');
+            }
+
+            const conditionKey = matches.join('_');
+
+            // Insert into the respective table based on matches
+            switch (conditionKey) {
+                case 'SENDER_BODY_SUBJECT':
+                    console.log('Matched sender, body, and subject');
+                    await senderBodySubject(sender, messageId, subject);
+                    break;
+                case 'SENDER_SUBJECT':
+                    console.log('Matched sender and subject');
+                    await senderSubject(sender, messageId, subject);
+                    break;
+                case 'BODY_SUBJECT':
+                    console.log('Matched body and subject');
+                    await bodySubject(sender, messageId, subject);
+                    break;
+                case 'SENDER_BODY':
+                    console.log('Matched sender and body');
+                    await senderBody(sender, messageId, subject);
+                    break;
+                case 'SENDER':
+                    console.log('Matched sender');
+                    await Sender(sender, messageId, subject);
+                    break;
+                case 'SUBJECT':
+                    console.log('Matched subject');
+                    await Subject(sender, messageId, subject);
+                    break;
+                case 'BODY':
+                    console.log('Matched body');
+                    await Body(sender, messageId, subject);
+                    break;
+                default:
+                    console.log('No match found for this email.');
+                    break;
+            }
+        }
+    } catch (err) {
+        console.log(`Error fetching details for message ID ${message.id}:`, err);
+    }
+}
+
+
 async function fetchInitialEmails(auth, maxResults) {
     const gmail = google.gmail({ version: 'v1', auth });
     const userKeywords = { sender: "", subject: "", body: "" }; // User-provided keywords at first sign-up
@@ -152,8 +286,7 @@ async function fetchInitialEmails(auth, maxResults) {
 
 async function fetchUnreadEmails(auth) {
     const gmail = google.gmail({ version: 'v1', auth });
-    const dbKeywords = await getKeywords(); // Fetch keywords from DB
-
+    
     try {
         const res = await gmail.users.history.list({
             userId: 'me',
@@ -165,7 +298,7 @@ async function fetchUnreadEmails(auth) {
             for (const historyItem of history) {
                 if (historyItem.messagesAdded) {
                     for (const message of historyItem.messagesAdded) {
-                        await checkKeywords(gmail, message.message, dbKeywords); // Use DB-stored keywords
+                        await checkNewEmailWithKeywords(gmail, message.message,); 
                     }
                 }
             }
@@ -177,30 +310,7 @@ async function fetchUnreadEmails(auth) {
     }
 }
 
-app.get('/', async (req, res) => {
-    const code = req.query.code;
 
-    if (!code) {
-        return res.send('Authorization failed. No code returned.');
-    }
-
-    try {
-        const { tokens } = await oAuth2Client.getToken(code);
-        oAuth2Client.setCredentials(tokens);
-        fs.writeFileSync('token.json', JSON.stringify(tokens));
-        res.send('Authorization successful! You can close this window.');
-
-        const firstTime = true; // Change this based on your logic to detect the first time user
-        if (firstTime) {
-            const maxResults = 10; // User-defined limit for first-time emails
-            await fetchInitialEmails(oAuth2Client, maxResults);
-        } else {
-            await fetchUnreadEmails(oAuth2Client);
-        }
-    } catch (err) {
-        return res.send(`Error retrieving access tokens: ${err}`);
-    }
-});
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
