@@ -1,0 +1,57 @@
+*Create all the necessary tables*
+
+CREATE TABLE userKeywords (
+    ID SERIAL PRIMARY KEY,
+    Sender VARCHAR(80),
+    Subject VARCHAR(80),
+    Body VARCHAR(80)
+);
+
+CREATE TABLE senderBodySubject (
+    ID SERIAL PRIMARY KEY,
+    Sender VARCHAR(80),
+	MessageID VARCHAR(80),
+    Subject VARCHAR(80)
+);
+
+CREATE TABLE senderSubject (
+    ID SERIAL PRIMARY KEY,
+    Sender VARCHAR(80),
+	MessageID VARCHAR(80),
+    Subject VARCHAR(80)
+);
+
+CREATE TABLE bodySubject (
+    ID SERIAL PRIMARY KEY,
+    Sender VARCHAR(80),
+	MessageID VARCHAR(80),
+    Subject VARCHAR(80)
+);
+
+CREATE TABLE senderBody (
+    ID SERIAL PRIMARY KEY,
+    Sender VARCHAR(80),
+	MessageID VARCHAR(80),
+    Subject VARCHAR(80)
+);
+
+CREATE TABLE sender (
+    ID SERIAL PRIMARY KEY,
+    Sender VARCHAR(80),
+	MessageID VARCHAR(80),
+    Subject VARCHAR(80)
+);
+
+CREATE TABLE subject (
+    ID SERIAL PRIMARY KEY,
+	Sender VARCHAR(80),
+	MessageID VARCHAR(80),
+    Subject VARCHAR(80)
+);
+
+CREATE TABLE body (
+    ID SERIAL PRIMARY KEY,
+	Sender VARCHAR(80),
+	MessageID VARCHAR(80),
+    Subject VARCHAR(80)
+);
