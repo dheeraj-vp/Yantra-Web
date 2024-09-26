@@ -20,7 +20,7 @@ const Footer = () => {
         <ul className='flex space-x-6 mb-6 md:mb-0'>
           <li className='hover:text-cyan-500 cursor-pointer' onClick={()=> navigate('/')}>Home</li>
           <li className='hover:text-cyan-500 cursor-pointer' onClick={()=> navigate('/about')}>About</li>
-          <li className='hover:text-cyan-500 cursor-pointer'>Testimonials</li>
+          <li className='hover:text-cyan-500 cursor-pointer' onClick={() => navigate('/testimonials')}>Testimonials</li>
           <li className='hover:text-cyan-500 cursor-pointer'>Contact</li>
         </ul>
 

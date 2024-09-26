@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const MiddleSection = () => {
     const navigate = useNavigate();
-        
+
   return (
     <div className='flex flex-col items-center justify-center min-h-screen text-center bg-black text-white p-6'>
       <h2 className='text-5xl font-bold text-[#00FFFF] mb-6 drop-shadow-lg'>

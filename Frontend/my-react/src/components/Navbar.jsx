@@ -13,11 +13,11 @@ const Navbar = () => {
   return (
     <nav className='flex justify-center items-center h-18 max-w-full mx-auto px-4 text-white border-b border-white-900 sticky top-0 z-50 bg-black'>
       <h1 className='w-full text-3xl font-bold text-[#00FFFF] italic' onClick={() => navigate('/')}>SiftIn</h1>
-      <ul className='hidden sm:flex flex-shrink'>
-        <li className='p-3 border-b-4 border-transparent hover:border-cyan-500' onClick={() => navigate('/')}>Home</li>
+      <ul className='hidden sm:flex flex-shrink '>
+        <li className='p-3 border-b border-transparent hover:border-cyan-500' onClick={() => navigate('/')}>Home</li>
         <li className='p-3 border-b border-transparent hover:border-cyan-500' onClick={() => navigate('/about')}>About</li>
-        <li className='p-3 border-b border-transparent hover:border-cyan-500'>Testimonials</li>
-        <li className='p-3 border-b border-transparent hover:border-cyan-500'>Contact</li>
+        <li className='p-3 border-b border-transparent hover:border-cyan-500' onClick={() => navigate('/testimonials')}>Testimonials</li>
+        <li className='p-3 border-b border-transparent hover:border-cyan-500 whitespace-nowrap'>Contact Us</li>
       </ul>
       <div onClick={handleNav} className='block sm:hidden'>
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -27,7 +27,7 @@ const Navbar = () => {
         <ul className='uppercase'>
           <li className='p-4 border-b border-gray-800' onClick={() => navigate('/')}>Home</li>
           <li className='p-4 border-b border-gray-800' onClick={() => navigate('/about')}>About</li>
-          <li className='p-4 border-b border-gray-800'>Testimonials</li>
+          <li className='p-4 border-b border-gray-800' onClick={() => navigate('/testimonials')}>Testimonials</li>
           <li className='p-4'>Contact</li>
         </ul>
         <div className='flex flex-col items-center space-y-4 mt-4'>
