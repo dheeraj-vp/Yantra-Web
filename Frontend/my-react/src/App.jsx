@@ -5,6 +5,7 @@ import MiddleSection from './components/Description';
 import About from './components/About';
 import Footer from './components/Footer';
 import Testimonials from './components/Testimonials';
+import ContactUs from './components/ContactUs';  // Import ContactUs component
 
 const App = () => {
   return (
@@ -13,11 +14,12 @@ const App = () => {
         <Navbar />
         <Routes>
           <Route path="/" element={<MiddleSection />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/testimonials" element={<Testimonials/>}/>
+          <Route path="/About" element={<About />} />
+          <Route path="/Testimonials" element={<Testimonials />} />
+          <Route path="/ContactUs" element={<ContactUs />} /> {/* Add the ContactUs route */}
           {/* Add other routes here */}
         </Routes>
-        <Footer/>
+        <Footer />
       </div>
     </Router>
   );
