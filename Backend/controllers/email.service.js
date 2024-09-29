@@ -21,7 +21,7 @@ const SCOPES = [
 
 let historyId = null;
 
-const authURL = oAuth2Client.generateAuthUrl({ access_type: 'offline', scope: SCOPES });
+const authURL = oAuth2Client.generateAuthUrl({ access_type: 'offline', scope: SCOPES }); //access_type offline - requests refresh tokens along with access tokens, offline access allows the app to access user data even when user isnt actively using it.
 console.log('Authorize this app by visiting this URL:', authURL);
 
 app.get('/', async (req, res) => {
