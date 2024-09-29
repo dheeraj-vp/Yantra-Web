@@ -1,0 +1,13 @@
+.testimonials-container {
+    overflow-x: auto;
+    overflow-y: hidden; /* Hide vertical scrollbar */
+  }
+  
+  .testimonial-box {
+    width: 500px;
+    height: 200px;
+    overflow-y: auto; /* Allow vertical scrolling within the box */
+    text-overflow: ellipsis; /* Truncate text with an ellipsis when it exceeds the box height */
+    display: inline-grid; /* Use CSS grid to layout the boxes */
+    grid-template-columns: 1fr; /* Take up full width */
+  }
