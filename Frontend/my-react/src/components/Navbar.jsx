@@ -15,9 +15,9 @@ const Navbar = () => {
       <h1 className='w-full text-3xl font-bold text-[#00FFFF] italic' onClick={() => navigate('/')}>SiftIn</h1>
       <ul className='hidden sm:flex flex-shrink '>
         <li className='p-3 border-b border-transparent hover:border-cyan-500' onClick={() => navigate('/')}>Home</li>
-        <li className='p-3 border-b border-transparent hover:border-cyan-500' onClick={() => navigate('/About')}>About</li>
-        <li className='p-3 border-b border-transparent hover:border-cyan-500' onClick={() => navigate('/Testimonials')}>Testimonials</li>
-        <li className='p-3 border-b border-transparent hover:border-cyan-500 whitespace-nowrap' onClick={()=> navigate('/ContactUs')}>Contact Us</li>
+        <li className='p-3 border-b border-transparent hover:border-cyan-500' onClick={() => navigate('/about')}>About</li>
+        <li className='p-3 border-b border-transparent hover:border-cyan-500' onClick={() => navigate('/testimonials')}>Testimonials</li>
+        <li className='p-3 border-b border-transparent hover:border-cyan-500 whitespace-nowrap' onClick={()=> navigate('/contact-us')}>Contact Us</li>
       </ul>
       <div onClick={handleNav} className='block sm:hidden'>
         {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -26,9 +26,9 @@ const Navbar = () => {
         <h1 className='w-full text-3xl font-bold text-[#00FFFF] p-4 border-b border-gray-800'>SiftIn</h1>
         <ul className='uppercase'>
           <li className='p-4 border-b border-gray-800' onClick={() => navigate('/')}>Home</li>
-          <li className='p-4 border-b border-gray-800' onClick={() => navigate('/About')}>About</li>
-          <li className='p-4 border-b border-gray-800' onClick={() => navigate('/Testimonials')}>Testimonials</li>
-          <li className='p-4'onClick={()=> navigate('/ContactUs')}>Contact</li>
+          <li className='p-4 border-b border-gray-800' onClick={() => navigate('/about')}>About</li>
+          <li className='p-4 border-b border-gray-800' onClick={() => navigate('/testimonials')}>Testimonials</li>
+          <li className='p-4'onClick={()=> navigate('/contact-us')}>Contact Us</li>
         </ul>
         <div className='flex flex-col items-center space-y-4 mt-4'>
           <a href="#" className='py-2 px-6 whitespace-nowrap text-sm italic font-semibold border-2 border-cyan-500 rounded-md hover:bg-cyan-500 transition-all'>Sign In</a>

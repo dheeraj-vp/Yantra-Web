@@ -1,24 +1,16 @@
+// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import MiddleSection from './components/Description';
-import About from './components/About';
 import Footer from './components/Footer';
-import Testimonials from './components/Testimonials';
-import ContactUs from './components/ContactUs';  // Import ContactUs component
+import AppRoutes from './components/routes';  
 
 const App = () => {
   return (
     <Router>
       <div>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<MiddleSection />} />
-          <Route path="/About" element={<About />} />
-          <Route path="/Testimonials" element={<Testimonials />} />
-          <Route path="/ContactUs" element={<ContactUs />} /> {/* Add the ContactUs route */}
-          {/* Add other routes here */}
-        </Routes>
+        <AppRoutes />  {/* Use AppRoutes here */}
         <Footer />
       </div>
     </Router>
