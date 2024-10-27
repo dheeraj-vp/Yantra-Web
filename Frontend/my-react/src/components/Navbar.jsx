@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { useNavigate } from 'react-router-dom'; // Ensure you're using react-router-dom
+import { useNavigate } from 'react-router-dom'; 
 
 const Navbar = () => {
   const [nav, setNav] = useState(false);
@@ -18,7 +18,7 @@ const Navbar = () => {
       >
         SiftIn
       </h1>
-      <ul className='hidden sm:flex flex-grow justify-center space-x-8 ml-20'> {/* Changed to ml-20 */}
+      <ul className='hidden sm:flex flex-grow justify-center space-x-8 ml-20'> 
         <li 
           className='p-3 border-b border-transparent hover:border-cyan-500 cursor-pointer text-lg'
           onClick={() => navigate('/')}
@@ -38,7 +38,7 @@ const Navbar = () => {
           Testimonials
         </li>
         <li 
-          className='p-3 border-b border-transparent hover:border-cyan-500 cursor-pointer text-lg whitespace-nowrap' // Added whitespace-nowrap
+          className='p-3 border-b border-transparent hover:border-cyan-500 cursor-pointer text-lg whitespace-nowrap' 
           onClick={() => navigate('/contact-us')}
         >
           Contact Us

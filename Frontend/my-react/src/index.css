@@ -5,3 +5,31 @@
 body {
   background-color: #000300;
 }
+/* Hide scrollbar until scroll on WebKit browsers */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #1a1a1a; /* Dark background for a subtle look */
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00FFFF, #007B7B);
+  border-radius: 10px;
+  visibility: hidden; /* Hide by default */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00e6e6, #005f5f); /* Lighter color on hover */
+}
+
+*::-webkit-scrollbar-thumb:active {
+  visibility: visible; /* Show scrollbar on scroll */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00FFFF #1a1a1a;
+}

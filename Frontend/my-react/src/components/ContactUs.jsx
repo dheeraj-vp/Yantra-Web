@@ -1,51 +1,35 @@
 import React, { useRef, useState } from "react";
 import emailjs from '@emailjs/browser';
-import { FaLinkedin, FaTwitter, FaEnvelope, FaPhoneAlt } from 'react-icons/fa'; // Import Font Awesome icons
-import { motion } from "framer-motion"; // Import Framer Motion
+import { FaLinkedin, FaTwitter, FaEnvelope, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
+import { motion } from "framer-motion";
+import faqs from "../data/faqsData";
 
 const ContactUs = () => {
   const form = useRef();
-  const [openFaqIndex, setOpenFaqIndex] = useState(null); // For FAQ toggle
+  const [openFaqIndex, setOpenFaqIndex] = useState(null);
 
   const sendEmail = (e) => {
     e.preventDefault();
-
     emailjs
       .sendForm('service_3ca92p3', 'service_3ca92p3', form.current, {
         publicKey: 'Gg-VHuhQDM9cz7TFw',
       })
-      .then(
-        () => {
+      .then(() => {
           console.log('SUCCESS!');
           e.target.reset();
-        },
-        (error) => {
-          console.log('FAILED...', error.text);
-        }
+        }, (error) => console.log('FAILED...', error.text)
       );
   };
 
-  const toggleFAQ = (index) => {
-    setOpenFaqIndex(openFaqIndex === index ? null : index); // Toggle open/close FAQ
-  };
+  const toggleFAQ = (index) => setOpenFaqIndex(openFaqIndex === index ? null : index);
 
-  const faqs = [
-    { question: "How does SiftIn protect my email privacy?", answer: "SiftIn ensures that your email data is never stored on our servers without your consent. All filtering happens locally, and sensitive information is protected." },
-    { question: "What kind of emails can I filter?", answer: "You can filter emails based on keywords in the sender, subject, or body of the email. You can also create custom filters to organize your inbox efficiently." },
-    { question: "Is SiftIn compatible with all email providers?", answer: "Currently, SiftIn supports Gmail integration through Google APIs. We plan to add support for other email providers in future updates." },
-    { question: "Can I receive notifications for specific filtered emails?", answer: "Yes, SiftIn can notify you when new emails matching your filters arrive, so you never miss important messages." }
-  ];
 
   const iconMotionVariants = {
     hidden: { opacity: 0, scale: 0.8 },
     visible: {
       opacity: 1,
       scale: 1,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-      },
+      transition: { type: "spring", stiffness: 300, damping: 20 },
     },
   };
 
@@ -59,49 +43,37 @@ const ContactUs = () => {
           We're here to help! If you have any questions or feedback about SiftIn, feel free to reach out to us.
         </p>
         
-        {/* Icons */}
+        {/* Icons with Animation */}
         <motion.div 
           className="flex items-center space-x-6 mt-6"
           initial="hidden"
           animate="visible"
-          variants={container}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { delayChildren: 0.3, staggerChildren: 0.2 }
+            }
+          }}
         >
-          <motion.a
-            href="https://www.linkedin.com/in/dheeraj-vp/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cyan-500 hover:text-cyan-300"
-            title="LinkedIn: dheeraj-vp"
-            variants={iconMotionVariants}
-          >
-            <FaLinkedin size={30} />
-          </motion.a>
-          <motion.a
-            href="mailto:dheeraj@example.com"
-            className="text-cyan-500 hover:text-cyan-300"
-            title="dheeraj.vp2023@vitstudent.ac.in"
-            variants={iconMotionVariants}
-          >
-            <FaEnvelope size={30} />
-          </motion.a>
-          <motion.a
-            href="tel:+1234567890"
-            className="text-cyan-500 hover:text-cyan-300"
-            title="8073748146"
-            variants={iconMotionVariants}
-          >
-            <FaPhoneAlt size={30} />
-          </motion.a>
-          <motion.a
-            href="https://twitter.com/dheeraj"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-cyan-500 hover:text-cyan-300"
-            title="Twitter: @dheeraj"
-            variants={iconMotionVariants}
-          >
-            <FaTwitter size={30} />
-          </motion.a>
+          {[
+            { href: "https://www.linkedin.com/in/dheeraj-vp/", title: "LinkedIn: dheeraj-vp", icon: <FaLinkedin size={30} /> },
+            { href: "mailto:dheeraj@example.com", title: "dheeraj.vp2023@vitstudent.ac.in", icon: <FaEnvelope size={30} /> },
+            { href: "tel:+1234567890", title: "8073748146", icon: <FaPhoneAlt size={30} /> },
+            { href: "https://twitter.com/dheeraj", title: "Twitter: @dheeraj", icon: <FaTwitter size={30} /> },
+          ].map((item, index) => (
+            <motion.a
+              key={index}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-cyan-500 hover:text-cyan-300"
+              title={item.title}
+              variants={iconMotionVariants}
+            >
+              {item.icon}
+            </motion.a>
+          ))}
         </motion.div>
         
         {/* FAQ Section */}
@@ -111,16 +83,21 @@ const ContactUs = () => {
             {faqs.map((faq, index) => (
               <div key={index}>
                 <button
-                  className="w-full text-left text-lg font-semibold text-white bg-gray-800 p-4 rounded-md focus:outline-none"
+                  className="w-full flex justify-between items-center text-left text-lg font-semibold text-white bg-gray-800 p-4 rounded-md focus:outline-none"
                   onClick={() => toggleFAQ(index)}
                 >
                   {faq.question}
+                  <FaChevronDown
+                    className={`transition-transform duration-300 ${openFaqIndex === index ? 'rotate-180' : 'rotate-0'}`}
+                  />
                 </button>
-                {openFaqIndex === index && (
-                  <div className="p-4 bg-gray-900 rounded-b-md text-sm text-gray-300">
+                <div
+                  className={`transition-all overflow-hidden ${openFaqIndex === index ? 'max-h-32' : 'max-h-0'}`}
+                >
+                  <div className="p-4 bg-gray-900 text-sm text-gray-300 rounded-b-md">
                     {faq.answer}
                   </div>
-                )}
+                </div>
               </div>
             ))}
           </div>
@@ -130,33 +107,26 @@ const ContactUs = () => {
       {/* Form Section */}
       <div className="md:w-1/2 flex justify-center items-center">
         <form ref={form} onSubmit={sendEmail} className="bg-gray-800 p-8 rounded-lg w-full max-w-lg">
-          <div className="mb-6">
-            <label className="block text-l italic font-medium mb-2">Name</label>
-            <input
-              type="text"
-              name="user_name"
-              className="w-full p-3 rounded-md bg-gray-900 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-l italic font-medium mb-2">Email</label>
-            <input
-              type="email"
-              name="user_email"
-              className="w-full p-3 rounded-md bg-gray-900 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-l italic font-medium mb-2">Message</label>
-            <textarea
-              name="message"
-              className="w-full p-3 rounded-md bg-gray-900 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-              rows="4"
-              required
-            />
-          </div>
+          {["Name", "Email", "Message"].map((field, idx) => (
+            <div className="mb-6" key={idx}>
+              <label className="block text-l italic font-medium mb-2">{field}</label>
+              {field === "Message" ? (
+                <textarea
+                  name="message"
+                  className="w-full p-3 rounded-md bg-gray-900 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+                  rows="4"
+                  required
+                />
+              ) : (
+                <input
+                  type={field.toLowerCase()}
+                  name={`user_${field.toLowerCase()}`}
+                  className="w-full p-3 rounded-md bg-gray-900 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none"
+                  required
+                />
+              )}
+            </div>
+          ))}
           <div className="text-right">
             <button
               type="submit"
@@ -172,24 +142,3 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-
-// Framer motion animation variants
-const container = {
-  hidden: { opacity: 1, scale: 0 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 0.3,
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const item = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1
-  }
-};

@@ -59,8 +59,6 @@ const About = () => (
         </div>
       </div>
     </div>
-
-    {/* Call to Action Button */}
     
   </div>
 );

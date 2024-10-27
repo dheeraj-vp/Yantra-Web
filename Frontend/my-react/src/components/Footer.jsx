@@ -33,16 +33,16 @@ const Footer = () => {
         {/* Social Media Links */}
         <div className='flex space-x-6'>
           <a href='#' className='hover:text-cyan-500 transition duration-300 transform hover:scale-125'>
-            <FaFacebookF size={25} /> {/* Increased size */}
+            <FaFacebookF size={25} /> 
           </a>
           <a href='#' className='hover:text-cyan-500 transition duration-300 transform hover:scale-125'>
-            <FaTwitter size={25} /> {/* Increased size */}
+            <FaTwitter size={25} /> 
           </a>
           <a href='#' className='hover:text-cyan-500 transition duration-300 transform hover:scale-125'>
-            <FaLinkedinIn size={25} /> {/* Increased size */}
+            <FaLinkedinIn size={25} />
           </a>
           <a href='#' className='hover:text-cyan-500 transition duration-300 transform hover:scale-125'>
-            <FaGithub size={25} /> {/* Increased size */}
+            <FaGithub size={25} /> 
           </a>
         </div>
       </div>
