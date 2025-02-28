@@ -1,8 +1,10 @@
 const faqs = [
-    { question: "How does SiftIn protect my email privacy?", answer: "SiftIn ensures that your email data is never stored on our servers without your consent. All filtering happens locally, and sensitive information is protected." },
-    { question: "What kind of emails can I filter?", answer: "You can filter emails based on keywords in the sender, subject, or body of the email. You can also create custom filters to organize your inbox efficiently." },
-    { question: "Is SiftIn compatible with all email providers?", answer: "Currently, SiftIn supports Gmail integration through Google APIs. We plan to add support for other email providers in future updates." },
-    { question: "Can I receive notifications for specific filtered emails?", answer: "Yes, SiftIn can notify you when new emails matching your filters arrive, so you never miss important messages." }
+  { question: "What is RAS: Robust Autonomous Surveyor?", answer: "RAS is an advanced autonomous system designed for efficient and accurate surveying in underground mining environments, enhancing safety and productivity." },
+  { question: "How does RAS ensure safety during operations?", answer: "RAS utilizes state-of-the-art sensors and real-time monitoring to detect hazards, navigate complex terrains, and maintain operational safety without human intervention." },
+  { question: "Can RAS be customized for different mining environments?", answer: "Yes, RAS is highly adaptable and can be configured to meet the specific requirements of various underground mining operations, ensuring optimal performance." },
+  { question: "What kind of data does RAS collect?", answer: "RAS collects detailed geological, structural, and environmental data to support mining operations, providing valuable insights for decision-making and resource management." }
   ];
-
-export default faqs;
+  
+  export default faqs;
+  
+  

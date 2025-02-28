@@ -16,7 +16,7 @@ const Navbar = () => {
         className='text-3xl font-bold text-[#00FFFF] italic cursor-pointer' 
         onClick={() => navigate('/')}
       >
-        SiftIn
+        CalQuity
       </h1>
       <ul className='hidden sm:flex flex-grow justify-center space-x-8 ml-20'> 
         <li 
@@ -27,21 +27,21 @@ const Navbar = () => {
         </li>
         <li 
           className='p-3 border-b border-transparent hover:border-cyan-500 cursor-pointer text-lg'
-          onClick={() => navigate('/about')}
+          onClick={() => navigate('/stocks')}
         >
-          About
+          Stocks
         </li>
         <li 
           className='p-3 border-b border-transparent hover:border-cyan-500 cursor-pointer text-lg'
-          onClick={() => navigate('/testimonials')}
+          onClick={() => navigate('/ipos')}
         >
-          Testimonials
+          IPOs
         </li>
         <li 
           className='p-3 border-b border-transparent hover:border-cyan-500 cursor-pointer text-lg whitespace-nowrap' 
-          onClick={() => navigate('/contact-us')}
+          onClick={() => navigate('/insights')}
         >
-          Contact Us
+          Investment Insights
         </li>
       </ul>
       <div onClick={handleNav} className='block sm:hidden cursor-pointer'>

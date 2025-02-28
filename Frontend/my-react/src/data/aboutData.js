@@ -2,40 +2,40 @@ export const sections = [
     {
       title: 'Our Mission',
       content:
-        'SiftIn helps you cut through the clutter by prioritizing emails that matter. With intuitive filters, SiftIn ensures you focus on essential emails while minimizing distractions.',
+        'To revolutionize underground mining safety and efficiency through autonomous drone technology, real-time data analysis, and AI-driven hazard detection.',
     },
     {
       title: 'How It Works',
       content:
-        'Filter emails based on keywords in the sender, subject, or body. SiftIn regularly scans your inbox, delivering important messages right when you need them.',
+        'Autonomous drones collect tunnel data using LiDAR and sensors, AI processes it for faults and hazards, and results are shown on a real-time dashboard.',
     },
     {
       title: 'Our Vision',
       content:
-        'We aim to transform how you manage emails, making inboxes more efficient and tailored to your needs.',
+        'To create a future where underground mining is safer, smarter, and fully automated through cutting-edge drone and AI technology.',
     },
     {
       title: 'Join Us',
       content:
-        'Experience the power of smart email filtering. Join thousands of users already streamlining their inbox with SiftIn.',
+        'Be part of a transformative project improving underground mining safety.Work on cutting-edge drone, AI, and real-time monitoring technologies.',
     },
   ];
   
   export const features = [
     {
       icon: '🔍',
-      title: 'Keyword Filtering',
-      description: 'Filter emails by keywords in the sender, subject, or body for a focused inbox.',
+      title: 'Autonomous Tunnel Mapping',
+      description: 'Advanced navigation without GPS using LiDAR and SLAM algorithms.',
     },
     {
       icon: '⏱️',
-      title: 'Real-Time Updates',
-      description: 'Your inbox is checked automatically every 15 minutes for matching emails.',
+      title: 'AI-Based Structural Fault Detection',
+      description: 'Real-time detection of cracks and deformations using 3D point cloud data.',
     },
     {
       icon: '📩',
-      title: 'Focused Display',
-      description: 'Only emails that match your criteria are highlighted, keeping your inbox clutter-free.',
+      title: 'Real-Time Hazard Monitoring',
+      description: 'Continuous monitoring of gas leaks and environmental anomalies with instant alerts.',
     },
   ];
 

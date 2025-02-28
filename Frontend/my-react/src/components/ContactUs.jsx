@@ -1,144 +1,265 @@
-import React, { useRef, useState } from "react";
-import emailjs from '@emailjs/browser';
-import { FaLinkedin, FaTwitter, FaEnvelope, FaPhoneAlt, FaChevronDown } from 'react-icons/fa';
-import { motion } from "framer-motion";
-import faqs from "../data/faqsData";
+import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Assuming you're using React Router
 
-const ContactUs = () => {
-  const form = useRef();
-  const [openFaqIndex, setOpenFaqIndex] = useState(null);
-
-  const sendEmail = (e) => {
-    e.preventDefault();
-    emailjs
-      .sendForm('service_3ca92p3', 'service_3ca92p3', form.current, {
-        publicKey: 'Gg-VHuhQDM9cz7TFw',
-      })
-      .then(() => {
-          console.log('SUCCESS!');
-          e.target.reset();
-        }, (error) => console.log('FAILED...', error.text)
-      );
-  };
-
-  const toggleFAQ = (index) => setOpenFaqIndex(openFaqIndex === index ? null : index);
-
-
-  const iconMotionVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: { type: "spring", stiffness: 300, damping: 20 },
+const advisoryData = {
+  active: [],
+  closed: [
+    {
+      exitDate: "Feb 28, 2025, 10:47 AM",
+      name: "IIFL Finance",
+      ticker: "IIFL",
+      netGainLoss: "-43.91%",
+      exitPrice: "₹311.50",
+      entryPrice: "₹555.35",
+      target: "₹600.00",
     },
-  };
+    {
+      exitDate: "Feb 27, 2025, 11:43 AM",
+      name: "Anant Raj",
+      ticker: "ANANTRAJ",
+      netGainLoss: "-42.57%",
+      exitPrice: "₹487.55",
+      entryPrice: "₹849.00",
+      target: "₹1,100.00",
+    },
+    {
+      exitDate: "Feb 27, 2025, 11:42 AM",
+      name: "P N Gadgil Jewellers",
+      ticker: "PNGJL",
+      netGainLoss: "-30.86%",
+      exitPrice: "₹546.00",
+      entryPrice: "₹789.75",
+      target: "₹950.00",
+    },
+    {
+      exitDate: "Feb 26, 2025, 02:15 PM",
+      name: "HDFC Bank",
+      ticker: "HDFCBANK",
+      netGainLoss: "-12.78%",
+      exitPrice: "₹1,420.00",
+      entryPrice: "₹1,628.00",
+      target: "₹1,900.00",
+    },
+    {
+      exitDate: "Feb 25, 2025, 10:30 AM",
+      name: "Reliance Industries",
+      ticker: "RELIANCE",
+      netGainLoss: "-8.92%",
+      exitPrice: "₹2,615.75",
+      entryPrice: "₹2,875.00",
+      target: "₹3,200.00",
+    },
+    {
+      exitDate: "Feb 24, 2025, 01:05 PM",
+      name: "Tata Motors",
+      ticker: "TATAMOTORS",
+      netGainLoss: "-18.62%",
+      exitPrice: "₹678.20",
+      entryPrice: "₹833.50",
+      target: "₹950.00",
+    },
+    {
+      exitDate: "Feb 22, 2025, 03:40 PM",
+      name: "Larsen & Toubro",
+      ticker: "LT",
+      netGainLoss: "-9.57%",
+      exitPrice: "₹3,038.00",
+      entryPrice: "₹3,360.00",
+      target: "₹3,700.00",
+    },
+    {
+      exitDate: "Feb 27, 2025, 11:41 AM",
+      name: "State Bank of India",
+      ticker: "SBIN",
+      netGainLoss: "-15.45%",
+      exitPrice: "₹708.50",
+      entryPrice: "₹837.95",
+      target: "₹1,000.00",
+    },
+    {
+      exitDate: "Feb 27, 2025, 11:40 AM",
+      name: "UltraTech Cement",
+      ticker: "ULTRACEMCO",
+      netGainLoss: "-11.40%",
+      exitPrice: "₹10,275.20",
+      entryPrice: "₹11,597.30",
+      target: "₹13,000.00",
+    },
+    {
+      exitDate: "Feb 27, 2025, 11:39 AM",
+      name: "Sunteck Realty",
+      ticker: "SUNTECK",
+      netGainLoss: "-37.50%",
+      exitPrice: "₹383.85",
+      entryPrice: "₹614.20",
+      target: "₹745.00",
+    },
+  ],
+};
+
+const investors = [
+  {
+    name: "Premji and Associates",
+    portfolioValue: "₹2,24,085.35 Cr",
+    numStocks: 1,
+    topHoldings: "Wipro Ltd. (72.69%)",
+    increase: "-",
+    decrease: "Wipro Ltd. (-0.04%)",
+    sectorHoldings: "Software & Services (100%)",
+  },
+  {
+    name: "Ashish Dhawan",
+    portfolioValue: "₹34,842.15 Cr",
+    numStocks: 17,
+    topHoldings: "IDFC Ltd. (21.49%), Birlasoft Ltd. (14.71%)",
+    increase: "ICICI Securities (5.12%)",
+    decrease: "IDFC Ltd. (-1.22%)",
+    sectorHoldings: "Financials (48.26%), IT (19.73%)",
+  },
+  {
+    name: "Vijay Kedia",
+    portfolioValue: "₹1,987.40 Cr",
+    numStocks: 10,
+    topHoldings: "Tejas Networks Ltd. (18.45%), Elecon Engineering (10.27%)",
+    increase: "Mahindra Holidays (7.89%)",
+    decrease: "Vaibhav Global (-3.12%)",
+    sectorHoldings: "Industrials (42.89%), Telecom (15.37%)",
+  },
+  {
+    name: "Dolly Khanna",
+    portfolioValue: "₹1,462.75 Cr",
+    numStocks: 12,
+    topHoldings: "Rain Industries Ltd. (19.27%), KCP Ltd. (11.39%)",
+    increase: "NDTV Ltd. (9.18%)",
+    decrease: "Som Distilleries (-4.72%)",
+    sectorHoldings: "Chemicals (28.92%), Consumer Goods (22.74%)",
+  },
+  {
+    name: "Radhakishan Damani",
+    portfolioValue: "₹1,59,677.04 Cr",
+    numStocks: 13,
+    topHoldings: "3M India Ltd. (1.48%), Aptech Ltd. (3.03%)",
+    increase: "Advani Hotels & Resorts (4.18%)",
+    decrease: "-",
+    sectorHoldings: "Retailing (97.46%), Banking (0.75%)",
+  },
+  {
+    name: "Rakesh Jhunjhunwala and Associates",
+    portfolioValue: "₹58,596.41 Cr",
+    numStocks: 27,
+    topHoldings: "Agro Tech Foods (7.03%), Aptech Ltd. (41.41%)",
+    increase: "Inventurus Knowledge Solutions (49.34%)",
+    decrease: "Nazara Tech (-0.85%), Wockhardt Ltd. (-0.10%)",
+    sectorHoldings: "Consumer Services (29.87%), Banking (13.76%)",
+  },
+];
+
+const MOAdvice = () => {
+  const [activeTab, setActiveTab] = useState("closed");
 
   return (
-    <div className="text-white bg-black flex flex-col w-full h-auto px-5 py-10 md:px-10 md:py-16 space-y-10 md:space-y-0 md:flex-row">
-      
-      {/* Contact Info */}
-      <div className="md:w-1/2 flex flex-col space-y-6">
-        <h1 className="text-4xl md:text-6xl font-bold text-cyan-500">Contact Us</h1>
-        <p className="text-lg">
-          We're here to help! If you have any questions or feedback about SiftIn, feel free to reach out to us.
-        </p>
-        
-        {/* Icons with Animation */}
-        <motion.div 
-          className="flex items-center space-x-6 mt-6"
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { delayChildren: 0.3, staggerChildren: 0.2 }
-            }
-          }}
-        >
-          {[
-            { href: "https://www.linkedin.com/in/dheeraj-vp/", title: "LinkedIn: dheeraj-vp", icon: <FaLinkedin size={30} /> },
-            { href: "mailto:dheeraj@example.com", title: "dheeraj.vp2023@vitstudent.ac.in", icon: <FaEnvelope size={30} /> },
-            { href: "tel:+1234567890", title: "8073748146", icon: <FaPhoneAlt size={30} /> },
-            { href: "https://twitter.com/dheeraj", title: "Twitter: @dheeraj", icon: <FaTwitter size={30} /> },
-          ].map((item, index) => (
-            <motion.a
-              key={index}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-500 hover:text-cyan-300"
-              title={item.title}
-              variants={iconMotionVariants}
-            >
-              {item.icon}
-            </motion.a>
-          ))}
-        </motion.div>
-        
-        {/* FAQ Section */}
-        <div className="w-full mt-10">
-          <h2 className="text-3xl font-semibold text-cyan-500 mb-6">FAQs</h2>
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div key={index}>
-                <button
-                  className="w-full flex justify-between items-center text-left text-lg font-semibold text-white bg-gray-800 p-4 rounded-md focus:outline-none"
-                  onClick={() => toggleFAQ(index)}
-                >
-                  {faq.question}
-                  <FaChevronDown
-                    className={`transition-transform duration-300 ${openFaqIndex === index ? 'rotate-180' : 'rotate-0'}`}
-                  />
-                </button>
-                <div
-                  className={`transition-all overflow-hidden ${openFaqIndex === index ? 'max-h-32' : 'max-h-0'}`}
-                >
-                  <div className="p-4 bg-gray-900 text-sm text-gray-300 rounded-b-md">
-                    {faq.answer}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+    <div className="bg-gray-100 min-h-screen px-6 py-10">
+      {/* Navbar */}
+      <nav className="flex justify-between items-center bg-white px-6 py-4 shadow-md">
+        <h1 className="text-xl font-bold text-gray-800">Investment Insights</h1>
+        <div className="space-x-4">
+          <Link to="/" className="text-blue-600 hover:text-blue-800">Home</Link>
+          <Link to="/ace-investors" className="text-blue-600 hover:text-blue-800">
+            Ace Investors
+          </Link>
         </div>
+      </nav>
+
+      {/* Advisory Section */}
+      <h1 className="text-3xl font-bold text-gray-800 mt-6 mb-4">Advisory Products</h1>
+
+      <div className="flex space-x-4 mb-6">
+        <button
+          className={`px-5 py-2 rounded-md font-semibold transition ${
+            activeTab === "active"
+              ? "bg-blue-600 text-white shadow"
+              : "bg-white text-gray-700 border border-gray-300"
+          }`}
+          onClick={() => setActiveTab("active")}
+        >
+          Active ({advisoryData.active.length})
+        </button>
+        <button
+          className={`px-5 py-2 rounded-md font-semibold transition ${
+            activeTab === "closed"
+              ? "bg-blue-600 text-white shadow"
+              : "bg-white text-gray-700 border border-gray-300"
+          }`}
+          onClick={() => setActiveTab("closed")}
+        >
+          Closed ({advisoryData.closed.length})
+        </button>
       </div>
 
-      {/* Form Section */}
-      <div className="md:w-1/2 flex justify-center items-center">
-        <form ref={form} onSubmit={sendEmail} className="bg-gray-800 p-8 rounded-lg w-full max-w-lg">
-          {["Name", "Email", "Message"].map((field, idx) => (
-            <div className="mb-6" key={idx}>
-              <label className="block text-l italic font-medium mb-2">{field}</label>
-              {field === "Message" ? (
-                <textarea
-                  name="message"
-                  className="w-full p-3 rounded-md bg-gray-900 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-                  rows="4"
-                  required
-                />
-              ) : (
-                <input
-                  type={field.toLowerCase()}
-                  name={`user_${field.toLowerCase()}`}
-                  className="w-full p-3 rounded-md bg-gray-900 text-white focus:ring-2 focus:ring-cyan-500 focus:outline-none"
-                  required
-                />
-              )}
-            </div>
-          ))}
-          <div className="text-right">
-            <button
-              type="submit"
-              className="py-3 px-8 text-lg font-semibold border-2 border-cyan-500 rounded-md text-cyan-500 hover:bg-cyan-500 hover:text-white transition-all"
+      <div className="grid md:grid-cols-3 gap-6">
+        {advisoryData[activeTab].length === 0 ? (
+          <p className="text-gray-500">No {activeTab} advisories available.</p>
+        ) : (
+          advisoryData[activeTab].map((advice, index) => (
+            <div
+              key={index}
+              className="bg-white p-5 rounded-lg shadow-md hover:shadow-lg transition duration-200"
             >
-              Send
-            </button>
-          </div>
-        </form>
+              <h2 className="text-lg font-semibold text-gray-800">
+                {advice.name} ({advice.ticker})
+              </h2>
+              <p className="text-gray-600 mt-2">
+                Net Gain/Loss:{" "}
+                <span
+                  className={`font-bold ${
+                    parseFloat(advice.netGainLoss) < 0 ? "text-red-500" : "text-green-500"
+                  }`}
+                >
+                  {advice.netGainLoss}
+                </span>
+              </p>
+            </div>
+          ))
+        )}
+      </div>
+
+      {/* Ace Investors Section */}
+      <h2 className="text-3xl font-bold text-gray-800 mt-10 mb-4">Ace Investors Portfolios</h2>
+      <p className="text-gray-600 mb-6">
+        Learn how institutional investors, FIIs, and individual market investors such as Premji and
+        Associates, Radhakishan Damani, and Rakesh Jhunjhunwala maintain top positions with detailed insights into their portfolios.
+      </p>
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border rounded-lg shadow-md">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="p-3">Investor</th>
+              <th className="p-3">Portfolio Value</th>
+              <th className="p-3">No. of Stocks</th>
+              <th className="p-3">Top Holdings</th>
+              <th className="p-3">Increase</th>
+              <th className="p-3">Decrease</th>
+              <th className="p-3">Sector Holdings</th>
+            </tr>
+          </thead>
+          <tbody>
+            {investors.map((investor, index) => (
+              <tr key={index} className="border-b">
+                <td className="p-3">{investor.name}</td>
+                <td className="p-3">{investor.portfolioValue}</td>
+                <td className="p-3">{investor.numStocks}</td>
+                <td className="p-3">{investor.topHoldings}</td>
+                <td className="p-3">{investor.increase}</td>
+                <td className="p-3">{investor.decrease}</td>
+                <td className="p-3">{investor.sectorHoldings}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
-export default ContactUs;
+export default MOAdvice;
