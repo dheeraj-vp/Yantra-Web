@@ -1,82 +1,99 @@
 {
-    "company": {
-      "name": "Tata Motors Ltd.",
-      "price": "₹662.00",
-      "change": "▲1.2%",
-      "tabs": ["overview", "financials", "peers"],
-      "financials": {
-        "overview": [
-          { "label": "Open", "value": "₹662.00" },
-          { "label": "Prev. Close", "value": "₹661.60" },
-          { "label": "Market Cap", "value": "₹2.39L Cr" },
-          { "label": "Beta", "value": "1.38" },
-          { "label": "Shares", "value": "368.12 Cr" },
-          { "label": "Volume", "value": "1.32 Cr" },
-          { "label": "Traded Value", "value": "₹796.54 Cr" },
-          { "label": "1M Avg. Vol", "value": "1.40 Cr" },
-          { "label": "Day Low", "value": "₹645.65" },
-          { "label": "Day High", "value": "₹665.00" },
-          { "label": "52 Wk Low", "value": "₹645.65" },
-          { "label": "52 Wk High", "value": "₹1179.00" },
-          { "label": "Div. Yield", "value": "0.93%" },
-          { "label": "ROE", "value": "36.97%" },
-          { "label": "EPS TTM", "value": "₹86.30" },
-          { "label": "P/E TTM", "value": "7.52" }
-        ],
-        "incomeStatements": [
-          { "Year": "Mar 2021", "NetSales": 30175.03, "OperatingProfit": 1454.38, "NetProfit": -2395.44, "EPS": -6.59, "NetProfitMargin": -7.94 },
-          { "Year": "Mar 2022", "NetSales": 47263.68, "OperatingProfit": 1498.93, "NetProfit": -1390.86, "EPS": -3.63, "NetProfitMargin": -2.94 },
-          { "Year": "Mar 2023", "NetSales": 65757.33, "OperatingProfit": 4531.05, "NetProfit": 2728.13, "EPS": 7.11, "NetProfitMargin": 4.15 },
-          { "Year": "Mar 2024", "NetSales": 73303.08, "OperatingProfit": 7615.11, "NetProfit": 7902.08, "EPS": 20.61, "NetProfitMargin": 10.78 },
-          { "Year": "TTM 2024", "NetSales": 69680.24, "OperatingProfit": 7976.34, "NetProfit": 6197.4, "EPS": 16.53, "NetProfitMargin": 8.89 }
-        ],
-        "balanceSheets": [
-          { "Year": "Mar 2020", "SHF": 18387.65, "NCL": 18391.4, "CL": 25810.82, "TL": 62589.87, "TA": 62589.87 },
-          { "Year": "Mar 2021", "SHF": 19055.97, "NCL": 19752.14, "CL": 26251.55, "TL": 65059.66, "TA": 65059.66 },
-          { "Year": "Mar 2022", "SHF": 19937.76, "NCL": 16962.91, "CL": 26992.81, "TL": 63899.87, "TA": 63899.87 },
-          { "Year": "Mar 2023", "SHF": 22467.39, "NCL": 13497.39, "CL": 25803.53, "TL": 61770.77, "TA": 61770.77 },
-          { "Year": "Mar 2024", "SHF": 30141.33, "NCL": 8614.53, "CL": 27326.16, "TL": 66083.74, "TA": 66083.74 }
-        ],
-        "cashFlows": [
-          { "Year": "Mar 2020", "OA": -1454.59, "IA": -4718.86, "FA": 7749.21, "NCF": 1657.9 },
-          { "Year": "Mar 2021", "OA": 6680.32, "IA": -2991.32, "FA": -3471.91, "NCF": 220.24 },
-          { "Year": "Mar 2022", "OA": 5281.93, "IA": -3149.49, "FA": -515.84, "NCF": 84.69 },
-          { "Year": "Mar 2023", "OA": 4775.43, "IA": 922.67, "FA": -7021.32, "NCF": -1328.8 },
-          { "Year": "Mar 2024", "OA": 8661.71, "IA": 1488.19, "FA": -7930.45, "NCF": 2223.46 }
-        ]
+  "company": {
+    "name": "Tata Motors Ltd.",
+    "price": "₹662.00",
+    "change": "▲1.2%",
+    "tabs": ["overview", "financials", "peers", "news"],
+    "financials": {
+      "overview": [
+        { "label": "Open", "value": "₹662.00" },
+        { "label": "Prev. Close", "value": "₹661.60" },
+        { "label": "Market Cap", "value": "₹2.39L Cr" },
+        { "label": "Beta", "value": "1.38" },
+        { "label": "Shares", "value": "368.12 Cr" },
+        { "label": "Volume", "value": "1.32 Cr" },
+        { "label": "Traded Value", "value": "₹796.54 Cr" },
+        { "label": "1M Avg. Vol", "value": "1.40 Cr" },
+        { "label": "Day Low", "value": "₹645.65" },
+        { "label": "Day High", "value": "₹665.00" },
+        { "label": "52 Wk Low", "value": "₹645.65" },
+        { "label": "52 Wk High", "value": "₹1179.00" },
+        { "label": "Div. Yield", "value": "0.93%" },
+        { "label": "ROE", "value": "36.97%" },
+        { "label": "EPS TTM", "value": "₹86.30" },
+        { "label": "P/E TTM", "value": "7.52" }
+      ],
+      "incomeStatements": [
+        { "Year": "Mar 2021", "NetSales": 30175.03, "OperatingProfit": 1454.38, "NetProfit": -2395.44, "EPS": -6.59, "NetProfitMargin": -7.94 },
+        { "Year": "Mar 2022", "NetSales": 47263.68, "OperatingProfit": 1498.93, "NetProfit": -1390.86, "EPS": -3.63, "NetProfitMargin": -2.94 },
+        { "Year": "Mar 2023", "NetSales": 65757.33, "OperatingProfit": 4531.05, "NetProfit": 2728.13, "EPS": 7.11, "NetProfitMargin": 4.15 },
+        { "Year": "Mar 2024", "NetSales": 73303.08, "OperatingProfit": 7615.11, "NetProfit": 7902.08, "EPS": 20.61, "NetProfitMargin": 10.78 },
+        { "Year": "TTM 2024", "NetSales": 69680.24, "OperatingProfit": 7976.34, "NetProfit": 6197.4, "EPS": 16.53, "NetProfitMargin": 8.89 }
+      ],
+      "balanceSheets": [
+        { "Year": "Mar 2020", "SHF": 18387.65, "NCL": 18391.4, "CL": 25810.82, "TL": 62589.87, "TA": 62589.87 },
+        { "Year": "Mar 2021", "SHF": 19055.97, "NCL": 19752.14, "CL": 26251.55, "TL": 65059.66, "TA": 65059.66 },
+        { "Year": "Mar 2022", "SHF": 19937.76, "NCL": 16962.91, "CL": 26992.81, "TL": 63899.87, "TA": 63899.87 },
+        { "Year": "Mar 2023", "SHF": 22467.39, "NCL": 13497.39, "CL": 25803.53, "TL": 61770.77, "TA": 61770.77 },
+        { "Year": "Mar 2024", "SHF": 30141.33, "NCL": 8614.53, "CL": 27326.16, "TL": 66083.74, "TA": 66083.74 }
+      ],
+      "cashFlows": [
+        { "Year": "Mar 2020", "OA": -1454.59, "IA": -4718.86, "FA": 7749.21, "NCF": 1657.9 },
+        { "Year": "Mar 2021", "OA": 6680.32, "IA": -2991.32, "FA": -3471.91, "NCF": 220.24 },
+        { "Year": "Mar 2022", "OA": 5281.93, "IA": -3149.49, "FA": -515.84, "NCF": 84.69 },
+        { "Year": "Mar 2023", "OA": 4775.43, "IA": 922.67, "FA": -7021.32, "NCF": -1328.8 },
+        { "Year": "Mar 2024", "OA": 8661.71, "IA": 1488.19, "FA": -7930.45, "NCF": 2223.46 }
+      ]
+    },
+    "news": [
+      {
+        "title": "Tata Motors shares on track for worst monthly losing streak in a decade",
+        "date": "28 Feb, 2025 | 01:49 PM",
+        "content": "Tata Motors shares are on track for their worst monthly losing streak in nearly a decade, with a 12.2% drop in February, marking seven consecutive months of declines. The stock hit a 52-week low, down 46% from its peak, amid weak demand in key markets, domestic PV and M&HCV slowdowns, and global tariff concerns. Analysts are split on recovery potential."
+      },
+      {
+        "title": "Tata Motors share price extends fall for ninth consecutive session",
+        "date": "28 Feb, 2025 | 10:32 AM",
+        "content": "Tata Motors' share price dropped over 2% to a 52-week low of ₹630.15, extending its ninth consecutive decline. The stock has fallen over 46% from its peak, eroding ₹2 lakh crore in market value. Weak demand for Jaguar Land Rover in China and the UK, and softness in India's passenger vehicle segment, are key factors."
+      },
+      {
+        "title": "Tata Motors' 'Tesla rival' Avinya electric SUV may be priced near ₹25 lakh",
+        "date": "25 Feb, 2025 | 02:19 PM",
+        "content": "Tata Motors plans to launch the Avinya, its all-electric SUV priced around Rs 25 lakh, in FY27, positioning it against Tesla’s Model 3. The Avinya features Tata’s gen 3 architecture, ultra-fast charging, and a 500 km range in 30 minutes. Tesla is set to enter India this year, with potential duty concessions for U.S. imports. Tata is also restructuring its businesses to enhance synergies."
       }
-    },
-    "analysis": {
-      "performance": [
-        { "label": "Quality", "score": "88/100", "remark": "High Financial Strength" },
-        { "label": "Valuation", "score": "78/100", "remark": "Affordable Valuation" },
-        { "label": "Technical", "score": "28/100", "remark": "Technically Bearish" }
-      ],
-      "swot": [
-        { "label": "Strengths", "value": 12, "color": "text-green-600" },
-        { "label": "Weaknesses", "value": 5, "color": "text-red-600" },
-        { "label": "Opportunities", "value": 1, "color": "text-blue-600" },
-        { "label": "Threats", "value": 1, "color": "text-orange-600" }
-      ]
-    },
-    "peers": {
-      "sector": "Automobiles & Auto Components",
-      "industry": "Cars & Utility Vehicles",
-      "metrics": [
-        { "label": "Market Cap (Cr)", "value": "₹2.39L" },
-        { "label": "PE Ratio", "value": "7.52" },
-        { "label": "Price to Book Ratio", "value": "2.36" },
-        { "label": "RSI", "value": "31.71" },
-        { "label": "Net Profit Margin", "value": "7.16%" }
-      ],
-      "comparison": [
-        ["MARUTI", "₹12,380.60", "-0.77%", "₹389,249.25", "₹3,726.90", "7.65%", "26.77", "₹2,834.77", "15.75%", "58.28%", "15.47%"],
-        ["M&M", "₹2,726.55", "-1.85%", "₹339,054.35", "-", "39.78%", "27.37", "₹567.46", "17.02%", "-", "-"],
-        ["TATAMOTORS", "₹648.55", "-1.97%", "₹238,743.53", "₹5,451.00", "-32.63%", "7.52", "₹274.54", "36.97%", "42.58%", "18.66%"],
-        ["HYUNDAI", "₹1,723.00", "-5.66%", "₹140,000.83", "₹1,160.73", "-", "24.56", "₹166.47", "56.81%", "82.50%", "6.70%"],
-        ["FORCEMOT", "₹6,601.45", "-3.26%", "₹8,698.24", "-", "8.56%", "17.18", "₹1,883.41", "17.20%", "-", "-"],
-        ["MERCURYEV", "₹63.40", "-5.05%", "₹1,204.43", "-", "-28.75%", "181.14", "₹9.88", "2.46%", "-", "-"],
-        ["HINDMOTORS", "₹23.53", "-4.00%", "₹490.98", "₹3.34", "19.75%", "15.16", "₹1.06", "-105.63%", "32.34%", "0.07%"]
-      ]
-    }
+    ]
+  },
+  "analysis": {
+    "performance": [
+      { "label": "Quality", "score": "88/100", "remark": "High Financial Strength" },
+      { "label": "Valuation", "score": "78/100", "remark": "Affordable Valuation" },
+      { "label": "Technical", "score": "28/100", "remark": "Technically Bearish" }
+    ],
+    "swot": [
+      { "label": "Strengths", "value": 12, "color": "text-green-600" },
+      { "label": "Weaknesses", "value": 5, "color": "text-red-600" },
+      { "label": "Opportunities", "value": 1, "color": "text-blue-600" },
+      { "label": "Threats", "value": 1, "color": "text-orange-600" }
+    ]
+  },
+  "peers": {
+    "sector": "Automobiles & Auto Components",
+    "industry": "Cars & Utility Vehicles",
+    "metrics": [
+      { "label": "Market Cap (Cr)", "value": "₹2.39L" },
+      { "label": "PE Ratio", "value": "7.52" },
+      { "label": "Price to Book Ratio", "value": "2.36" },
+      { "label": "RSI", "value": "31.71" },
+      { "label": "Net Profit Margin", "value": "7.16%" }
+    ],
+    "comparison": [
+      ["MARUTI", "₹12,380.60", "-0.77%", "₹389,249.25", "₹3,726.90", "7.65%", "26.77", "₹2,834.77", "15.75%", "58.28%", "15.47%"],
+      ["M&M", "₹2,726.55", "-1.85%", "₹339,054.35", "-", "39.78%", "27.37", "₹567.46", "17.02%", "-", "-"],
+      ["TATAMOTORS", "₹648.55", "-1.97%", "₹238,743.53", "₹5,451.00", "-32.63%", "7.52", "₹274.54", "36.97%", "42.58%", "18.66%"],
+      ["HYUNDAI", "₹1,723.00", "-5.66%", "₹140,000.83", "₹1,160.73", "-", "24.56", "₹166.47", "56.81%", "82.50%", "6.70%"],
+      ["FORCEMOT", "₹6,601.45", "-3.26%", "₹8,698.24", "-", "8.56%", "17.18", "₹1,883.41", "17.20%", "-", "-"],
+      ["MERCURYEV", "₹63.40", "-5.05%", "₹1,204.43", "-", "-28.75%", "181.14", "₹9.88", "2.46%", "-", "-"],
+      ["HINDMOTORS", "₹23.53", "-4.00%", "₹490.98", "₹3.34", "19.75%", "15.16", "₹1.06", "-105.63%", "32.34%", "0.07%"]
+    ]
   }
+}

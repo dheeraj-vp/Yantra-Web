@@ -75,6 +75,14 @@ const About = () => {
     </div>
   );
 
+  const NewsCard = ({ news }) => (
+    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+      <h3 className="text-lg font-semibold text-gray-900 mb-2">{news.title}</h3>
+      <p className="text-sm text-gray-500 mb-4">{news.date}</p>
+      <p className="text-sm text-gray-700">{news.content}</p>
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gray-50 text-gray-800 p-6">
       {/* Navigation Header */}
@@ -283,6 +291,14 @@ const About = () => {
                 </table>
               </div>
             </div>
+          </div>
+        )}
+
+        {activeTab === "news" && (
+          <div className="space-y-6">
+            {data.company.news.map((news, idx) => (
+              <NewsCard key={idx} news={news} />
+            ))}
           </div>
         )}
       </div>

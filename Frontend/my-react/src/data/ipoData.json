@@ -1,0 +1,79 @@
+{
+    "ipos": {
+      "upcoming": [],
+      "recent": [
+        {
+          "name": "Quality Power El",
+          "currentPrice": 378.7,
+          "change": -11.4,
+          "changePercent": -2.92,
+          "offerPrice": 425,
+          "listingPrice": 430,
+          "listingGain": 1.18,
+          "gainSinceListing": -11.9,
+          "timesSubscribed": 1.29,
+          "listingDate": "24-Feb-2025"
+        },
+        {
+          "name": "Hexaware Tech.",
+          "currentPrice": 804.35,
+          "change": -22.25,
+          "changePercent": -2.69,
+          "offerPrice": 708,
+          "listingPrice": 731,
+          "listingGain": 3.25,
+          "gainSinceListing": 10.0,
+          "timesSubscribed": 2.66,
+          "listingDate": "19-Feb-2025"
+        },
+        {
+          "name": "Ajax Engineering",
+          "currentPrice": 592.3,
+          "change": -8.65,
+          "changePercent": -1.44,
+          "offerPrice": 629,
+          "listingPrice": 576,
+          "listingGain": -8.43,
+          "gainSinceListing": 2.8,
+          "timesSubscribed": 6.44,
+          "listingDate": "17-Feb-2025"
+        },
+        {
+          "name": "Dr Agarwal's Hea",
+          "currentPrice": 398,
+          "change": -9.15,
+          "changePercent": -2.25,
+          "offerPrice": 402,
+          "listingPrice": 402,
+          "listingGain": 0,
+          "gainSinceListing": -1.0,
+          "timesSubscribed": 1.55,
+          "listingDate": "04-Feb-2025"
+        },
+        {
+          "name": "Denta Water",
+          "currentPrice": 301.15,
+          "change": -5.7,
+          "changePercent": -1.86,
+          "offerPrice": 294,
+          "listingPrice": 325,
+          "listingGain": 10.54,
+          "gainSinceListing": -7.3,
+          "timesSubscribed": 221.68,
+          "listingDate": "29-Jan-2025"
+        },
+        {
+          "name": "Stallion India",
+          "currentPrice": 63.75,
+          "change": -1.03,
+          "changePercent": -1.59,
+          "offerPrice": 90,
+          "listingPrice": 120,
+          "listingGain": 33.33,
+          "gainSinceListing": -46.9,
+          "timesSubscribed": 188.37,
+          "listingDate": "23-Jan-2025"
+        }
+      ]
+    }
+  }
