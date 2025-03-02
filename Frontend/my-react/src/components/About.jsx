@@ -7,193 +7,281 @@ const About = () => {
 
   // Reusable components
   const PerformanceIndicator = ({ item }) => (
-    <div className="bg-white p-4 rounded-lg border shadow-sm">
-      <h2 className="text-sm font-medium text-gray-500">{item.label}</h2>
-      <p className="text-xl font-semibold text-gray-900 my-1">{item.score}</p>
-      <p className="text-sm text-gray-500">{item.remark}</p>
+    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+      <div className="flex items-center gap-3 mb-2">
+        <div className="w-2 h-6 bg-blue-500 rounded-full"></div>
+        <h2 className="text-sm font-semibold text-gray-600">{item.label}</h2>
+      </div>
+      <p className="text-2xl font-bold text-gray-900 mb-1">{item.score}</p>
+      <p className="text-sm text-gray-500 font-medium">{item.remark}</p>
     </div>
   );
 
   const SWOTAnalysis = ({ item }) => (
-    <div className="bg-white p-4 rounded-lg border shadow-sm text-center">
-      <p className={`text-2xl font-bold ${item.color}`}>{item.value}</p>
-      <p className="text-sm text-gray-500 mt-1">{item.label}</p>
+    <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow text-center">
+      <div className={`text-4xl font-bold mb-2 ${item.color}`}>
+        {item.value}
+        <span className="text-lg ml-1">/20</span>
+      </div>
+      <p className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
+        {item.label}
+      </p>
     </div>
   );
 
-  const FinancialTable = ({ headers, rows }) => (
-    <table className="min-w-full border border-gray-300 mt-2">
-      <thead>
-        <tr className="bg-gray-200 text-gray-700">
-          {headers.map((header, idx) => (
-            <th key={idx} className="p-2 border">{header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {rows.map((row, idx) => (
-          <tr key={idx} className="text-center border">
-            {Object.values(row).map((value, idx) => (
-              <td key={idx} className="p-2 border">
-                {typeof value === "number" ? value.toLocaleString() : value}
-              </td>
+  const FinancialTable = ({ headers, rows, title }) => (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+      <h3 className="text-lg font-semibold bg-gray-50 p-4 border-b">{title}</h3>
+      <div className="overflow-x-auto">
+        <table className="min-w-full">
+          <thead className="bg-gray-50">
+            <tr>
+              {headers.map((header, idx) => (
+                <th
+                  key={idx}
+                  className="px-4 py-3 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider"
+                >
+                  {header}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+            {rows.map((row, idx) => (
+              <tr
+                key={idx}
+                className="hover:bg-gray-50 transition-colors even:bg-gray-50"
+              >
+                {Object.values(row).map((value, idx) => (
+                  <td
+                    key={idx}
+                    className="px-4 py-3 text-sm text-gray-700 font-medium"
+                  >
+                    {typeof value === "number" ? (
+                      <span className={value < 0 ? "text-red-500" : ""}>
+                        {value.toLocaleString()}
+                        {idx === headers.length - 1 && "%"}
+                      </span>
+                    ) : (
+                      value
+                    )}
+                  </td>
+                ))}
+              </tr>
             ))}
-          </tr>
-        ))}
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 
   return (
-    <div className="min-h-screen bg-white text-gray-800 p-6">
-      {/* Navbar */}
-      <div className="w-full max-w-7xl mx-auto mb-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-        <div className="flex items-center gap-4 w-full sm:w-auto">
-          <div className="flex gap-4">
+    <div className="min-h-screen bg-gray-50 text-gray-800 p-6">
+      {/* Navigation Header */}
+      <div className="w-full max-w-7xl mx-auto mb-8">
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+          {/* Tabs */}
+          <div className="flex gap-1 bg-white p-1 rounded-xl shadow-sm border border-gray-100">
             {data.company.tabs.map((tab) => (
               <button
                 key={tab}
-                className={`text-sm font-medium pb-2 px-1 ${
+                className={`px-6 py-2 rounded-lg text-sm font-medium transition-all ${
                   activeTab === tab
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-500 hover:text-gray-700"
-                } transition-all duration-200`}
+                    ? "bg-blue-500 text-white shadow-sm"
+                    : "text-gray-500 hover:bg-gray-100"
+                }`}
                 onClick={() => setActiveTab(tab)}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
             ))}
           </div>
-        </div>
 
-        <div className="flex items-center gap-4 w-full sm:w-auto">
-          <div className="bg-blue-50 px-3 py-1.5 rounded-lg text-sm text-blue-600">
-            Stock of the Day: {data.company.name} ({data.company.price} {data.company.change})
+          {/* Search and Stock Info */}
+          <div className="w-full lg:w-auto flex flex-col sm:flex-row gap-3">
+            <div className="bg-blue-100 px-4 py-2 rounded-lg text-sm text-blue-700 font-semibold flex items-center gap-2">
+              <span className="text-blue-500">★</span>
+              Stock of the Day: {data.company.name} ({data.company.price}{" "}
+              <span className="text-green-500">{data.company.change}</span>)
+            </div>
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="Search stocks..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 pr-4 py-2 w-full lg:w-64 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-blue-400"
+              />
+              <svg
+                className="absolute left-3 top-3 h-5 w-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
           </div>
-          <input
-            type="text"
-            placeholder="Search stocks..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
-          />
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="w-full max-w-7xl mx-auto">
+      <div className="w-full max-w-7xl mx-auto space-y-8">
         {activeTab === "overview" && (
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-6">
-              {data.company.name}
-              <span className="text-lg ml-4 text-green-600">
-                {data.company.price} {data.company.change}
-              </span>
-            </h1>
+          <>
+            {/* Company Header */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                {data.company.name}
+              </h1>
+              <div className="flex items-center gap-4">
+                <span className="text-2xl font-semibold text-gray-900">
+                  {data.company.price}
+                </span>
+                <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                  {data.company.change}
+                </span>
+                <span className="text-gray-500 text-sm">
+                  NSE: TATAMOTORS • BSE: 500570
+                </span>
+              </div>
+            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            {/* Performance Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {data.analysis.performance.map((item, idx) => (
                 <PerformanceIndicator key={idx} item={item} />
               ))}
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {/* SWOT Analysis */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {data.analysis.swot.map((item, idx) => (
                 <SWOTAnalysis key={idx} item={item} />
               ))}
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg">
-              {data.company.financials.overview.map((item, idx) => (
-                <div key={idx} className="flex flex-col">
-                  <span className="text-sm text-gray-500">{item.label}</span>
-                  <span className="text-base font-medium text-gray-900">{item.value}</span>
-                </div>
-              ))}
+            {/* Key Metrics */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <h2 className="text-xl font-semibold mb-6">Key Financial Metrics</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {data.company.financials.overview.map((item, idx) => (
+                  <div key={idx} className="flex flex-col gap-1">
+                    <span className="text-sm text-gray-500 font-medium">
+                      {item.label}
+                    </span>
+                    <span className="text-lg font-semibold text-gray-900">
+                      {item.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          </>
         )}
 
         {activeTab === "financials" && (
-          <div className="p-6 text-gray-600">
-            <h2 className="text-lg font-semibold text-center text-gray-800 mb-6">Financial Statements</h2>
+          <div className="space-y-8">
+            <FinancialTable
+              title="Income Statement (Values in ₹ Crores)"
+              headers={["Year", "Net Sales", "Operating Profit", "Net Profit", "EPS", "Margin %"]}
+              rows={data.company.financials.incomeStatements}
+            />
 
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Income Statement</h3>
-                <FinancialTable
-                  headers={["Year", "Net Sales", "Operating Profit", "Net Profit", "EPS", "Net Profit Margin %"]}
-                  rows={data.company.financials.incomeStatements}
-                />
-              </div>
+            <FinancialTable
+              title="Balance Sheet (Values in ₹ Crores)"
+              headers={["Year", "Shareholders Funds", "Non-Current Liab.", "Current Liab.", "Total Liab.", "Total Assets"]}
+              rows={data.company.financials.balanceSheets}
+            />
 
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Balance Sheet</h3>
-                <FinancialTable
-                  headers={["Year", "Share Holders Funds", "Non-Current Liabilities", "Current Liabilities", "Total Liabilities", "Total Assets"]}
-                  rows={data.company.financials.balanceSheets}
-                />
-              </div>
-
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Cash Flow Statement</h3>
-                <FinancialTable
-                  headers={["Year", "Operating Activities", "Investing Activities", "Financing Activities", "Net Cash Flow"]}
-                  rows={data.company.financials.cashFlows}
-                />
-              </div>
-            </div>
+            <FinancialTable
+              title="Cash Flow Statement (Values in ₹ Crores)"
+              headers={["Year", "Operating", "Investing", "Financing", "Net Flow"]}
+              rows={data.company.financials.cashFlows}
+            />
           </div>
         )}
 
         {activeTab === "peers" && (
-          <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">Sector: {data.peers.sector}</h2>
-            <h3 className="text-lg font-semibold text-gray-700 mb-6">Industry: {data.peers.industry}</h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-              {data.analysis.performance.map((item, idx) => (
-                <PerformanceIndicator key={idx} item={item} />
-              ))}
-            </div>
-
-            <div className="grid grid-cols-4 gap-4 mb-8">
-              {data.analysis.swot.map((item, idx) => (
-                <SWOTAnalysis key={idx} item={item} />
-              ))}
-            </div>
-
-            <div className="grid grid-cols-3 gap-4 bg-gray-50 p-4 rounded-lg mb-8">
-              {data.peers.metrics.map((item, idx) => (
-                <div key={idx} className="flex flex-col">
-                  <span className="text-sm text-gray-500">{item.label}</span>
-                  <span className="text-base font-medium text-gray-900">{item.value}</span>
+          <div className="space-y-8">
+            {/* Sector Overview */}
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+              <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">
+                    {data.peers.sector}
+                  </h2>
+                  <p className="text-gray-500">{data.peers.industry}</p>
                 </div>
-              ))}
-            </div>
-
-            <h3 className="text-lg font-semibold text-gray-700 mb-4">Peer Comparison</h3>
-            <div className="overflow-x-auto">
-              <table className="min-w-full bg-white border rounded-lg shadow-sm">
-                <thead>
-                  <tr className="bg-gray-100">
-                    {["Symbol", "Price", "Chg %", "M.Cap (Cr)", "Net Profit-Qtr", "1 Yr %", "P/E(TTM)", "Book Value", "ROE", "Promoter Holding", "FII Holding"].map(
-                      (header, idx) => (
-                        <th key={idx} className="text-left px-4 py-2 text-gray-600 text-sm">{header}</th>
-                      )
-                    )}
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.peers.comparison.map((row, rowIndex) => (
-                    <tr key={rowIndex} className="border-t">
-                      {row.map((cell, cellIndex) => (
-                        <td key={cellIndex} className="px-4 py-2 text-sm text-gray-700">{cell}</td>
-                      ))}
-                    </tr>
+                <div className="grid grid-cols-2 gap-4">
+                  {data.peers.metrics.map((item, idx) => (
+                    <div key={idx} className="flex flex-col gap-1">
+                      <span className="text-sm text-gray-500">{item.label}</span>
+                      <span className="text-lg font-semibold text-blue-600">
+                        {item.value}
+                      </span>
+                    </div>
                   ))}
-                </tbody>
-              </table>
+                </div>
+              </div>
+
+              {/* Peer Comparison */}
+              <div className="overflow-x-auto rounded-lg border border-gray-100">
+                <table className="min-w-full">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      {["Symbol", "Price", "Change", "Market Cap", "P/E", "ROE", "1Y Return"].map(
+                        (header, idx) => (
+                          <th
+                            key={idx}
+                            className="px-4 py-3 text-left text-sm font-semibold text-gray-600 uppercase"
+                          >
+                            {header}
+                          </th>
+                        )
+                      )}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-100">
+                    {data.peers.comparison.map((row, rowIndex) => (
+                      <tr
+                        key={rowIndex}
+                        className="hover:bg-gray-50 even:bg-gray-50 transition-colors"
+                      >
+                        {[0, 1, 2, 3, 6, 8, 5].map((cellIndex) => (
+                          <td
+                            key={cellIndex}
+                            className={`px-4 py-3 text-sm ${
+                              cellIndex === 0
+                                ? "font-semibold text-blue-600"
+                                : "text-gray-700"
+                            }`}
+                          >
+                            {cellIndex === 2 ? (
+                              <span
+                                className={
+                                  row[cellIndex].startsWith("-")
+                                    ? "text-red-500"
+                                    : "text-green-500"
+                                }
+                              >
+                                {row[cellIndex]}
+                              </span>
+                            ) : (
+                              row[cellIndex]
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}

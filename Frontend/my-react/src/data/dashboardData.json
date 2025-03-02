@@ -1,0 +1,89 @@
+{
+    "marketIndices": [
+      {
+        "name": "Nifty 50",
+        "value": "22,545.05",
+        "change": "-2.50 (-0.01%)",
+        "color": "text-red-500",
+        "image": "nifty50",
+        "low": "22,508.4",
+        "high": "22,613.3",
+        "return": "-0.01%"
+      },
+      {
+        "name": "Nifty Bank",
+        "value": "48,743.8",
+        "change": "+135.45 (+0.28%)",
+        "color": "text-green-500",
+        "image": "niftybank",
+        "low": "48,500.4",
+        "high": "48,900.3",
+        "return": "+0.28%"
+      },
+      {
+        "name": "BSE Sensex",
+        "value": "74,612.43",
+        "change": "+10.31 (+0.01%)",
+        "color": "text-green-500",
+        "image": "sensex",
+        "low": "74,500.2",
+        "high": "74,750.8",
+        "return": "+0.01%"
+      },
+      {
+        "name": "GIFT NIFTY",
+        "value": "22,576",
+        "change": "+30.00 (+0.13%)",
+        "color": "text-green-500",
+        "image": "gift_nifty",
+        "low": "22,530.5",
+        "high": "22,620.1",
+        "return": "+0.13%"
+      }
+    ],
+    "commodities": [
+      {
+        "name": "GOLD",
+        "value": "85,201.00",
+        "change": "-673.00 (-0.78%)",
+        "color": "text-red-500"
+      },
+      {
+        "name": "SILVER",
+        "value": "93,767.00",
+        "change": "-874.00 (-0.92%)",
+        "color": "text-red-500"
+      },
+      {
+        "name": "CRUDEOIL",
+        "value": "6,140.00",
+        "change": "+140.00 (+2.33%)",
+        "color": "text-green-500"
+      },
+      {
+        "name": "NATURALGAS",
+        "value": "346.70",
+        "change": "-3.00 (-0.86%)",
+        "color": "text-red-500"
+      }
+    ],
+    "fiiDiiData": [
+      { "date": "27-Feb-2025", "netFII": "-556.60", "netDII": "1,727.10" },
+      { "date": "25-Feb-2025", "netFII": "-3,529.10", "netDII": "3,030.80" },
+      { "date": "24-Feb-2025", "netFII": "-6,286.70", "netDII": "5,185.60" }
+    ],
+    "topGainers": [
+      { "name": "CreditAcc. Gram.", "price": 900, "change": "▲ 5.2%", "color": "text-green-500" },
+      { "name": "Just Dial", "price": 1000, "change": "▲ 7.4%", "color": "text-green-500" },
+      { "name": "AU Small Finance", "price": 1100, "change": "▲ 9.1%", "color": "text-green-500" },
+      { "name": "HDFC Bank", "price": 1650, "change": "▲ 4.8%", "color": "text-green-500" },
+      { "name": "Tata Motors", "price": 950, "change": "▲ 6.3%", "color": "text-green-500" }
+    ],
+    "topLosers": [
+      { "name": "KEI Industries", "price": 3000, "change": "▼ 10.2%", "color": "text-red-500" },
+      { "name": "R R Kabel", "price": 2500, "change": "▼ 12.5%", "color": "text-red-500" },
+      { "name": "Polycab India", "price": 2000, "change": "▼ 8.9%", "color": "text-red-500" },
+      { "name": "Bajaj Finance", "price": 5200, "change": "▼ 6.1%", "color": "text-red-500" },
+      { "name": "Reliance", "price": 2800, "change": "▼ 7.4%", "color": "text-red-500" }
+    ]
+  }
